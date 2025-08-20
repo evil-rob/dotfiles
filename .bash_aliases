@@ -6,3 +6,4 @@ alias rename-dots='ls *.*.* | sed -r '\''p;h; s/.*(\..*)/\1/; x; s/\.+[^.]*$//; 
 alias rename-mst='ls *_[mst]_* | sed -r '\''p; s/_([mst][_.])/\1/g'\'' | xargs -n2 mv -n'
 alias titlecase='sed '\''p; h; s/.*\(\..*\)$/\1/; x; s/\.[^.]*//; y/_/ /; s/[A-Z]/\L&/g; s/^\([a-z]\)/\U\1/; s/ \([a-z]\)/ \U\1/g; y/ /_/; G; s/\n//g'\'''
 alias rename-symbols='ls *-_* | sed '\''p; s/-_//g'\'' | xargs -n2 mv -n'
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
