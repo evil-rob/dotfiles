@@ -1,6 +1,6 @@
 /* Scratchpad */
 #scratchpad {
-    background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+    background: #729FCF;
     border-radius: 6px;
     margin: 2px;
     padding: 2px 8px;
@@ -10,7 +10,7 @@
 
 /* Taskbar */
 #taskbar {
-    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    background: #729FCF;
     border-radius: 6px;
     margin: 2px;
     padding: 2px 4px;
@@ -30,13 +30,13 @@
 }
 
 #taskbar button.active {
-    background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+    background: #204A87;
     color: #ffffff;
 }
 
 /* Updates */
 #custom-updates {
-    background: linear-gradient(45deg, #96fbc4 0%, #f9f047 100%);
+    background: #729FCF;
     border-radius: 6px;
     padding: 2px 8px;
     margin: 2px;
@@ -66,7 +66,7 @@ window#waybar.hidden {
 
 /* Workspaces */
 #workspaces {
-    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    background: #729FCF;
     border-radius: 6px;
     margin: 2px;
     padding: 0 3px;
@@ -87,7 +87,7 @@ window#waybar.hidden {
 }
 
 #workspaces button.focused {
-    background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+    background: #3465A4;
     color: #ffffff;
     box-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
 }
@@ -107,7 +107,7 @@ window#waybar.hidden {
 
 /* Window title */
 #window {
-    background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+    background: #729FCF;
     border-radius: 6px;
     margin: 2px 4px;
     padding: 2px 10px;
@@ -117,7 +117,7 @@ window#waybar.hidden {
 
 /* Clock */
 #clock {
-    background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);
+    background: #729FCF;
     border-radius: 6px;
     padding: 2px 12px;
     margin: 2px;
@@ -126,9 +126,19 @@ window#waybar.hidden {
     font-size: 13px;
 }
 
+/* Network */
+#network {
+    background: #729FCF;
+    border-radius: 6px;
+    padding: 2px 10px;
+    margin: 2px;
+    color: #1a1b26;
+    font-weight: 600;
+}
+
 /* Battery */
 #battery {
-    background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
+    background: #729FCF;
     border-radius: 6px;
     padding: 2px 10px;
     margin: 2px;
@@ -137,17 +147,17 @@ window#waybar.hidden {
 }
 
 #battery.charging {
-    background: linear-gradient(45deg, #96fbc4 0%, #f9f047 100%);
+    background: #729FCF;
     animation: charging 2s linear infinite;
 }
 
 #battery.warning:not(.charging) {
-    background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+    background: #EDD400;
     color: #ffffff;
 }
 
 #battery.critical:not(.charging) {
-    background: linear-gradient(45deg, #ff5722 0%, #ff9800 100%);
+    background: #EF2929;
     color: #ffffff;
     animation: critical 0.5s linear infinite alternate;
 }
@@ -160,14 +170,14 @@ window#waybar.hidden {
 
 @keyframes critical {
     to {
-        background: linear-gradient(45deg, #ffffff 0%, #ff5722 100%);
+        background: #729FCF;
         color: #ff5722;
     }
 }
 
 /* Weather */
 #custom-weather {
-    background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);
+    background: #729FCF;
     border-radius: 6px;
     padding: 2px 10px;
     margin: 2px;
@@ -177,7 +187,7 @@ window#waybar.hidden {
 
 /* Tray */
 #tray {
-    background: linear-gradient(45deg, #e0c3fc 0%, #9bb5ff 100%);
+    background: #729FCF;
     border-radius: 6px;
     padding: 2px 6px;
     margin: 2px;

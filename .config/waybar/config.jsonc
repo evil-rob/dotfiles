@@ -10,16 +10,17 @@
     
     "modules-left": [
         "sway/workspaces",
-        "sway/scratchpad",
-        "wlr/taskbar"
+        "wlr/taskbar",
+        "sway/scratchpad"
     ],
     
     "modules-center": [
-        "clock"
+        "clock",
+        "custom/weather"
     ],
     
     "modules-right": [
-        "custom/weather",
+        "network",
         "battery",
         "custom/updates",
         "tray"
@@ -85,6 +86,21 @@
         "format": "{:L%a %X}",
         "format-alt": "{:L%F %T}",
         "interval": 1
+    },
+
+    // Network
+    "network": {
+        "interface": "wlp4s0",
+        "format": "{ifname}",
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-disconnected": "",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "footclient /usr/bin/nmtui-connect"
     },
 
     // Battery indicator
