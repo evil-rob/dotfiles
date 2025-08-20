@@ -1,0 +1,8 @@
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+alias run-script='while read; do cliphist decode "$REPLY"; echo; done < <(cliphist list | tac) | cookies="$HOME"/.cache/cookies.txt "$HOME"/Stuff/build/yt-dlp-par/yt-dlp-par.sh'
+alias yt-cliphist='yt-dlp --newline --cookies "$HOME"/.cache/cookies.txt --mark-watched --embed-metadata $(cliphist list | tac | while read -r; do echo $(cliphist decode "$REPLY"); done)'
+alias rename-dots='ls *.*.* | sed -r '\''p;h; s/.*(\..*)/\1/; x; s/\.+[^.]*$//; y/./_/; s/__+/_/g; G; s/\n//'\'' | xargs -n2 mv -n'
+alias rename-mst='ls *_[mst]_* | sed -r '\''p; s/_([mst][_.])/\1/g'\'' | xargs -n2 mv -n'
+alias titlecase='sed '\''p; h; s/.*\(\..*\)$/\1/; x; s/\.[^.]*//; y/_/ /; s/[A-Z]/\L&/g; s/^\([a-z]\)/\U\1/; s/ \([a-z]\)/ \U\1/g; y/ /_/; G; s/\n//g'\'''
+alias rename-symbols='ls *-_* | sed '\''p; s/-_//g'\'' | xargs -n2 mv -n'

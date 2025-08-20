@@ -1,0 +1,6 @@
+exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+exec_always /usr/bin/dunst &
+exec /usr/bin/waybar
+exec foot --server
+exec /usr/bin/wl-paste -w /usr/bin/cliphist store &
+exec mate-volume-control-status-icon

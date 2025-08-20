@@ -1,0 +1,126 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 2,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
+    
+    "modules-left": [
+        "sway/workspaces",
+        "sway/scratchpad",
+        "wlr/taskbar"
+    ],
+    
+    "modules-center": [
+        "clock"
+    ],
+    
+    "modules-right": [
+        "custom/weather",
+        "battery",
+        "custom/updates",
+        "tray"
+    ],
+
+    // Workspace switcher
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        },
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+
+    // Scratchpad indicator
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+
+    // Taskbar - shows all windows with focus highlight
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "icon-theme": "Adwaita",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": [ ],
+        "app_ids-mapping": {
+            "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+    },
+
+    // Current focused application
+    "sway/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "tooltip": false
+    },
+
+    // Clock widget
+    "clock": {
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "{:L%A %B %d, %Y}",
+        "format": "{:L%a %X}",
+        "format-alt": "{:L%F %T}",
+        "interval": 1
+    },
+
+    // Battery indicator
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", ""]
+    },
+
+    // Package updates indicator
+    "custom/updates": {
+        "format": "{}",
+        "interval": 3600,
+        "exec": "$HOME/.config/waybar/scripts/updates.sh",
+        "return-type": "json",
+        "on-click": "/usr/bin/pamac-manager --updates"
+    },
+
+    // Weather widget
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 1800,
+        "exec": "$HOME/.config/waybar/scripts/weather.sh",
+        "return-type": "json"
+    },
+
+    // System tray
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    }
+}
