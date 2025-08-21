@@ -233,6 +233,24 @@ bindsym $mod+r mode "resize"
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
+bar {
+    position top
+    status_command i3blocks
+    
+    colors {
+        statusline #ffffff
+        background #282828
+        inactive_workspace #32323200 #32323200 #5c5c5c
+        active_workspace   #323232   #323232   #ffffff
+        focused_workspace  #2f343a   #bf616a   #ffffff
+        urgent_workspace   #2f343a   #ebcb8b   #2f343a
+    }
+    
+    font pango:DejaVu Sans Mono 10
+    
+    # Optional: Add system tray
+    tray_output primary
+}
 
 include $HOME/.config/sway/config.d/*
 include /etc/sway/config.d/*
