@@ -161,7 +161,7 @@ function secretcode
 #}
 
 # Get previous BitWarden session key
-SESSION_KEY=$HOME/.config/bwsession.env
-[ -f $SESSION_KEY ] && source $SESSION_KEY
+#SESSION_KEY=$HOME/.config/bwsession.env
+#[ -f $SESSION_KEY ] && source $SESSION_KEY
 
 # fastfetch

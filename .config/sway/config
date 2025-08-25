@@ -235,7 +235,7 @@ bindsym $mod+r mode "resize"
 #}
 bar {
     position top
-    status_command i3blocks
+    status_command SCRIPTS="$HOME/.config/i3blocks/scripts" i3blocks
     
     colors {
         statusline #ffffff

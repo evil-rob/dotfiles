@@ -39,10 +39,10 @@ fi
 
 case $status in
     "Charging")
-        status_icon=""
+        status_icon=" "
         ;;
     "Full")
-        status_icon=""
+        status_icon=" "
         ;;
     "Discharging"|"Not charging")
         status_icon=""
@@ -55,13 +55,13 @@ esac
 
 # Color coding based on battery level for low battery warning
 if [ "$capacity" -le 15 ] && [ "$status" != "Charging" ]; then
-    echo "${battery_icon} ${capacity}% ${status_icon}"
+    echo "${battery_icon} ${capacity}%${status_icon}"
     echo ""  # Short text (same as full text)
     echo "#FF0000"  # Red color for critical battery
 elif [ "$capacity" -le 30 ] && [ "$status" != "Charging" ]; then
-    echo "${battery_icon} ${capacity}% ${status_icon}"
+    echo "${battery_icon} ${capacity}%${status_icon}"
     echo ""
     echo "#FFA500"  # Orange for low battery
 else
-    echo "${battery_icon} ${capacity}% ${status_icon}"
+    echo "${battery_icon} ${capacity}%${status_icon}"
 fi

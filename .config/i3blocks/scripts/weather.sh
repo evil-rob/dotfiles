@@ -4,7 +4,7 @@
 
 set -eu
 
-LOCATION="${1-34.1648945,-118.5206919}"
+LOCATION="${1-}"
 
 # Cache file to avoid too frequent API calls
 CACHE_DIR="$HOME/.cache/i3blocks"
@@ -29,13 +29,19 @@ then
 fi
 
 wttr() {
-  location=$(echo "$1" | tr " " "+")
-  [ "$#" -gt 0 ] && shift
-  for p in $WTTR_PARAMS "$@"
+  # If -o option is given, store the argument that follows as the output file
+  if [ "${1-}" = "-o" ]
+  then
+    shift
+    [ -n "${1+x}" ] && out="$1" && shift
+  fi
+
+  [ -n "${1+x}" ] && location=$(echo "$1" | tr " " "+") && shift
+  for p in $WTTR_PARAMS "$@" "random=$$+$(date +%s)"
   do
     [ -n "${args+x}" ] && args="$args --data-urlencode $p" || args="--data-urlencode $p"
   done
-  curl -fGsS -H "Accept-Language: ${LANG%_*}" $args --compressed "wttr.in/$location"
+  curl -o "${out--}" -fGsS -H "Accept-Language: ${LANG%_*}" $args --compressed "wttr.in/$location"
 }
 
 # Create cache directory if it doesn't exist
@@ -45,10 +51,11 @@ if [ -n "${BLOCK_BUTTON+x}" ]
 then
     case $BLOCK_BUTTON in
         1|3)
-            wttr "$LOCATION.png" | swayimg --fullscreen --scale=fit --config="info.show=no" -
+            [ ! -f "$CACHE_FILE.png" ] || [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE.png"))) -ge $CACHE_DURATION ] && wttr -o "$CACHE_FILE.png" "$LOCATION.png"
+            swayimg --fullscreen --scale=fit --config="info.show=no" "$CACHE_FILE.png"
             ;;
         2)
-            rm -f "$CACHE_FILE"
+            rm -f "$CACHE_FILE"*
             ;;
     esac
 fi
@@ -61,7 +68,6 @@ then
 fi
 
 # Fetch weather data
-weather_data=$(wttr "$LOCATION" "format=2") || { echo "Weather: N/A"; exit 1; }
-weather_data=$(echo "$weather_data" | tr "+" " ")
+wttr -o "$CACHE_FILE" "$LOCATION" "format=2" || { echo "Weather: N/A"; exit 1; }
 
-echo "$weather_data" | tee "$CACHE_FILE"
+cat "$CACHE_FILE"

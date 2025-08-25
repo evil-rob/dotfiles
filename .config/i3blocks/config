@@ -1,47 +1,30 @@
 # i3blocks configuration file for swaybar
 
 # Global properties
-separator_block_width=15
-markup=pango
+separator_block_width=50
 
-# Weather widget (now without taskbar)
+# Display window name
+[window]
+command=while swaymsg -t get_tree | jq -r '.. | select(type=="object" and .focused==true and (.type=="con" or .type=="floating_con")) | .name'; do sleep 0.1; done
+interval=persist
+
+# Weather widget
 [weather]
-command=~/.config/i3blocks/scripts/weather.sh
-interval=600
+command="$SCRIPTS/weather.sh"
+interval=60
 color=#87CEEB
-separator=false
-
-[separator2]
-full_text=" | "
-color=#666666
-separator=false
 
 # Network widget
 [network]
-command=~/.config/i3blocks/scripts/network.sh
+command="$SCRIPTS/network.sh"
 interval=5
-color=#90EE90
-separator=false
-
-[separator3]
-full_text=" | "
-color=#666666
-separator=false
 
 # Battery indicator
 [battery]
-command=~/.config/i3blocks/scripts/battery.sh
+command="$SCRIPTS/battery.sh"
 interval=30
-color=#FFD700
-separator=false
-
-[separator4]
-full_text=" | "
-color=#666666
-separator=false
 
 # Clock
 [time]
 command=date '+%m/%d/%Y %I:%M:%S %p'
 interval=1
-color=#FFA500
