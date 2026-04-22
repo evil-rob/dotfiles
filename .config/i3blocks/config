@@ -5,26 +5,37 @@ separator_block_width=50
 
 # Display window name
 [window]
-command=while swaymsg -t get_tree | jq -r '.. | select(type=="object" and .focused==true and (.type=="con" or .type=="floating_con")) | .name'; do sleep 0.1; done
+command=swaymsg -mt subscribe '["window","workspace"]' | "$SCRIPTS/$BLOCK_NAME.jq"
+format=json
 interval=persist
 
 # Weather widget
 [weather]
 command="$SCRIPTS/weather.sh"
-interval=60
-color=#87CEEB
+interval=once
+signal=10
+#color=#87CEEB
 
 # Network widget
 [network]
+label= 
 command="$SCRIPTS/network.sh"
 interval=5
 
 # Battery indicator
 [battery]
 command="$SCRIPTS/battery.sh"
-interval=30
+interval=10
+
+# Package updates
+[updates]
+label= 
+command="$SCRIPTS/updates.sh"
+interval=once
+signal=10
 
 # Clock
 [time]
-command=date '+%m/%d/%Y %I:%M:%S %p'
-interval=1
+label= 
+command=date '+%m/%d/%Y  %I:%M %p'
+interval=30

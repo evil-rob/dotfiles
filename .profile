@@ -23,4 +23,4 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # set default terminal
-export TERMINAL=/usr/bin/terminal
+#export TERMINAL=/usr/bin/terminal

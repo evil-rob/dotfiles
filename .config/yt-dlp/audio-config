@@ -1,0 +1,1 @@
+-f 140 --paths $HOME/Videos/yt-dlp --output "%(title)s.%(ext)s" --restrict-filenames --no-mtime --embed-thumbnail --embed-chapters --embed-metadata

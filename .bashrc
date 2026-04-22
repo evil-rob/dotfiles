@@ -143,6 +143,8 @@ export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+export MANSECT=1:1p:2:3:n:l:8:3p:0:0p:3type:5:4:9:6:7
+source "$HOME"/.local/share/bash-completion/completions/deno.bash
 source "$HOME"/.bash_aliases
 function secretcode
 {

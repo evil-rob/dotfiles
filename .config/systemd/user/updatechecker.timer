@@ -1,0 +1,9 @@
+[Unit]
+Description=Check for updates 10min after boot and every 6 hours
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+
+[Install]
+WantedBy=default.target

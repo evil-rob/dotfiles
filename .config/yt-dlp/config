@@ -1,0 +1,13 @@
+# --format "bv*[vcodec^=avc][height<=720]+ba[ext=m4a]/best"
+#--format "ba[ext=m4a]/best" # Audio only
+# 720 h264
+--format-sort height:720,codec:h264:mp4a
+# Smallest h264
+# --format-sort codec:h264:mp4a,+size
+# --paths temp:$HOME/.local/share/yt-dlp
+--paths $HOME/Videos/yt-dlp
+# --paths $XDG_RUNTIME_DIR/gvfs/smb-share:server=bespin.local,share=video/yt-dlp
+--output "%(title)s.%(ext)s"
+--restrict-filenames
+--no-mtime
+--embed-thumbnail

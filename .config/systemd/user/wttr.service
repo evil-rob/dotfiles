@@ -1,0 +1,12 @@
+[Unit]
+Description=Get weather from wttr.in
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '. "$HOME"/.local/bin/wttr.sh; wttr -f 2'
+ExecStartPost=/usr/bin/pkill -SIGRTMIN+10 i3blocks
+StandardOutput=file:/home/robert/.cache/i3blocks/weather
+StandardError=journal
+
+[Install]
+WantedBy=default.target

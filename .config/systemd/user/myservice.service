@@ -1,0 +1,9 @@
+[Unit]
+Description=My Service
+
+[Service]
+Type=exec
+ExecStart=/bin/sh -c 'echo "$0: Hello there"; i=0; while :; do echo "[$i] Running ..."; echo $(date --iso-8601); i=$((i+1)); sleep 5; done'
+
+[Install]
+WantedBy=default.target

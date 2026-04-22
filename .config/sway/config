@@ -5,6 +5,9 @@
 # Read `man 5 sway` for a complete reference.
 
 #include $HOME/.config/sway/config.d/10-autostart
+include $HOME/.config/sway/config.d/*
+include /etc/sway/config.d/*
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -214,7 +217,16 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec screenshot.sh
     bindsym $mod+u exec wl-unicode-picker
+    # Clear clipboard history
+    bindsym $mod+c exec sh -c 'cliphist wipe && notify-send "cliphist" "Clipboard history cleared."'
 
+#
+# Quick Launch Programs:
+#
+#bindsym $mod+Mod1+f exec $term lf
+#bindsym $mod+Mod1+f exec $term -T lf bash -i -c "source $HOME/.bashrc && lf"
+bindsym $mod+Mod1+f exec dex /usr/share/applications/pcmanfm.desktop
+bindsym $mod+p exec dex $HOME/.local/share/applications/rofi.desktop
 #
 # Status Bar:
 #
@@ -252,5 +264,10 @@ bar {
     tray_output primary
 }
 
-include $HOME/.config/sway/config.d/*
-include /etc/sway/config.d/*
+# Window rules
+
+for_window [app_id="pcmanfm" title="Removable medium is inserted"] floating enable
+for_window [app_id="galculator"] floating enable
+for_window [app_id="yad"] floating enable
+for_window [app_id="pacman"] floating enable
+for_window [app_id="wttr.in"] floating enable

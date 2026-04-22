@@ -1,0 +1,12 @@
+[Unit]
+Description=Update Checker
+
+[Service]
+Type=oneshot
+ExecStart=/home/robert/.local/bin/checkupdates.sh
+ExecStartPost=/usr/bin/pkill -SIGRTMIN+10 i3blocks
+StandardOutput=file:/home/robert/.cache/i3blocks/updates
+StandardError=journal
+
+[Install]
+WantedBy=default.target

@@ -1,6 +1,13 @@
-exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+# Import variables from the login shell into the Wayland session
+exec dbus-update-activation-environment --all
+
+# Start the keyring components and export the variables
+exec --no-startup-id gnome-keyring-daemon --start --components=secrets,ssh,pkcs11
+
+exec systemctl --user start hyprpolkitagent
+
 exec_always /usr/bin/dunst &
 #exec /usr/bin/waybar
 exec foot --server
 exec /usr/bin/wl-paste -w /usr/bin/cliphist store &
-exec mate-volume-control-status-icon
+#exec mate-volume-control-status-icon
