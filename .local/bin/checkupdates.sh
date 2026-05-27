@@ -41,9 +41,12 @@ fakeroot pacman -Sy --dbpath "$CHECKUPDATES_DB" --logfile /dev/null --disable-sa
 
 # Generate list of out of date packages. Pacman will exit with failure if
 # no packages match the query, i.e. nothing is out of date. Send a desktop
-# notification if new updates are available.
+# notification if new updates are available. Swallow exit code if notify-send
+# fails.
 new_packages=$(pacman -Qqu --dbpath "$CHECKUPDATES_DB") && \
-    notify-send "$PROG_NAME" "$(echo "$new_packages"|wc -l) updates available."
+    notify-send "$PROG_NAME" "$(echo "$new_packages"|wc -l) updates available." || \
+    true
+
 if [ -n "${JSON+z}" ]
 then
     # JSON flag was passed so output as JSON
@@ -58,6 +61,14 @@ then
     echo "]}"
     unset prefix
 else
-    # Plain output. First line shout be last_update.
-    printf "%s\n" "$last_update" "$new_packages"
+    # Plain output. Print current date and time, then $last_update,
+    # followed by $new_packages. Use word splitting to put each
+    # package name on a separate line.
+    printf "%s\n" "$last_update" $new_packages
 fi
+
+# Signal any status bar that might be running.
+for pid in $(pidof i3blocks waybar)
+do
+    kill -SIGRTMIN+10 "$pid"
+done

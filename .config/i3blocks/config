@@ -4,10 +4,10 @@
 separator_block_width=50
 
 # Display window name
-[window]
-command=swaymsg -mt subscribe '["window","workspace"]' | "$SCRIPTS/$BLOCK_NAME.jq"
-format=json
-interval=persist
+#[window]
+#command=swaymsg -mt subscribe '["window","workspace"]' | "$SCRIPTS/$BLOCK_NAME.jq"
+#format=json
+#interval=persist
 
 # Weather widget
 [weather]
@@ -28,11 +28,11 @@ command="$SCRIPTS/battery.sh"
 interval=10
 
 # Package updates
-[updates]
-label= 
-command="$SCRIPTS/updates.sh"
-interval=once
-signal=10
+#[updates]
+#label= 
+#command="$SCRIPTS/updates.sh"
+#interval=once
+#signal=10
 
 # Clock
 [time]

@@ -1,0 +1,213 @@
+#
+# Starter muttrc file, with just a few suggestions and settings.
+#
+# This file purposely doesn't include hooks, keybinding, macros, colors, etc.
+# Read the manual, explore, and have fun!
+#
+
+#unset wait_key
+
+#set my_sync = "`{ mbsync gmail-inbox || notify-send Mutt 'Sync failed.'; } >/dev/null 2>&1 &`"
+
+###############
+# Identity
+#
+set my_gmail_address = "rsblank@gmail.com"
+set my_gmail_app_pass = "`secret-tool lookup service gmail user rsblank@gmail.com`"
+set realname = "Robert Blank"
+set from = $my_gmail_address
+set use_from = yes
+
+# If you have another address:
+#alternates "^mutt@example\.com$"
+
+# Or, if you use the entire domain:
+#alternates "@example\.com$"
+#set reverse_name
+
+###############
+# Example: local mailboxes
+#
+# Some people use mbsync or getmail to retrieve their mail locally.
+#
+#set mbox_type = Maildir
+set folder = ~/Mail/gmail       # This has the shortcut '+' or '='
+set spoolfile = "+inbox"      # This has the shortcut '!'
+set record = "+sent"
+set trash = "+trash"
+set postponed = "+drafts"
+unset copy
+
+mailboxes ! =sent =drafts =junk =trash ~/Mail/archives/archive_2026.mbox
+#mailboxes ! +mutt +family +work
+
+###############
+# Example: Gmail over IMAP
+#
+#set my_imap_URI = "imaps://imap.gmail.com:993"
+#set imap_user = $my_gmail_address
+
+# To avoid storing your password in the .muttrc:
+# echo -n 'mypassword' | gpg --encrypt -r 0x1234567890ABCDEF > ~/.mutt/account.gpg
+#set imap_pass = "`gpg --batch -q --decrypt ~/.mutt/account.gpg`"
+#set imap_pass = $my_gmail_app_pass
+
+#set folder = "$my_imap_URI/[Gmail]/"
+#set spoolfile = "$my_imap_URI/INBOX"
+#unset record                # Gmail auto-stores in "+[Gmail].Sent Mail"
+#unset trash                 # Unset, deletion will remove labels
+#set trash = +Trash
+#set postponed = +Drafts
+
+#mailboxes ! =Not\ Filed =Sent\ Mail =Drafts =Spam =Trash
+#set mail_check = 60
+
+###############
+# Pager settings
+#
+
+ignore *
+unignore From Message-ID Date To Cc Bcc Subject
+
+set pager_stop
+unset markers
+
+# Prefer plain text to html.
+# However, for brain dead clients that bundle attachments inside a
+# multipart/alternative, prefer that alternative.
+alternative_order multipart/mixed multipart/related text/plain
+#unalternative_order *
+#alternative_order text/x-amp-html text/html text/plain
+
+#message-hook '~b "^$"' 'unalternative_order *; alternative_order text/x-amp-html text/html'
+
+# Consult mime.types for determining types of these attachments
+mime_lookup application/octet-stream
+
+# This requires a ~/.mailcap entry with the copiousoutput flag, such as:
+# text/html; lynx -dump -width ${COLUMNS:-80} %s; nametemplate=%s.html; copiousoutput
+#
+#set mailcap_path = "~/.mailcap:/etc/mailcap"
+auto_view text/x-amp-html text/html
+
+# Show 10 lines of the message list while reading an email
+set pager_index_lines = 5
+
+###############
+# Index settings
+#
+#set quit = ask-yes
+
+set sort = threads
+
+# Sort messages within the thread so the newest reply is at the bottom
+#set sort_aux = reverse-last-date-received
+
+# Remember to `mkdir -p ~/.cache/mutt/hcache` first:
+set header_cache= "~/.cache/mutt/hcache"
+set message_cachedir = "~/.cache/mutt/bcache"
+
+# Standard Date Format (Fallback)
+#set index_format="%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+# Dynamically change $index_format based on the age of the message
+set index_format="%4C %Z %18@date@ %-15.15L (%4c) %s"
+index-format-hook  date  "~d<1d"    "%8[Today] %[%l:%M %p]"
+index-format-hook  date  "~d<1w"    "%[%-8A %l:%M %p]"
+index-format-hook  date  "~d<1y"    "%[%a] %11[%B %e]"
+index-format-hook  date  "~A"       "%[%B %-1e,%Y]"
+
+###############
+# Message composition settings
+#
+set edit_headers
+
+# set editor = "emacsclient -a emacs -t"
+set editor = "vim"
+
+set mime_type_query_command = "xdg-mime query filetype"
+
+# msmtp is a solid SMTP client.
+# mutt also has built-in SMTP, or you can use an MTA like exim4 or postfix.
+#set sendmail = "/usr/bin/msmtp"
+set smtp_url = "smtps://$my_gmail_address:$my_gmail_app_pass@smtp.gmail.com:465/"
+
+# lbdb is a versatile contact query tool.
+# Invoke via ctrl-t in an address prompt
+#set query_command = "/usr/bin/lbdbq"
+
+###############
+# Sidebar
+#
+
+#set sidebar_visible = yes
+#set sidebar_width = 20
+#
+#bind index,pager \Cp sidebar-prev
+#bind index,pager \Cn sidebar-next
+#bind index,pager \Cl sidebar-open
+#bind index,pager B sidebar-toggle-visible
+#
+#set sidebar_short_path = yes
+#set sidebar_delim_chars = "/"
+
+#########################
+# Colors
+#
+
+# Color new messages red in the list
+color index color5 default ~N
+color index color5 default ~O
+
+color indicator default color8
+
+# Subtly shades the "From" line
+color header color248 default "^From:"
+
+# Creates a high-contrast bar at the bottom
+color status color232 color248
+
+# Color body [foreground] [background] [regex]
+color body color33 default "(http|https|ftp)://[^ ]+"
+
+# Color the sidebar background/divider
+color sidebar_divider color244 default
+
+# Color for mailboxes with no new mail
+#color sidebar_ordinary color250 default
+
+# Color for the currently selected mailbox in the sidebar
+color sidebar_highlight color0 color4
+color sidebar_indicator default color8
+
+# Highlight folders with new mail in a specific color
+color sidebar_new color5 default 
+
+# The format string ensures the count is visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
+###############
+# GnuPG
+#
+#unset crypt_use_gpgme
+#source /usr/local/share/doc/mutt/samples/gpg.rc
+#set pgp_default_key = "0x1234567890ABCDEF"
+#set crypt_opportunistic_encrypt
+#set postpone_encrypt
+
+##############
+# Certificates
+#
+# Point Mutt to the system-wide CA bundle
+
+set ssl_usesystemcerts = yes
+
+# (Optional) Save accepted certificates
+set certificate_file = "~/.config/mutt/certificates"
+
+###################
+# Keybindings
+#
+
+# Sync inbox using mbsync
+macro index,pager,browser <ESC>i \
+    "<shell-escape>mbsync gmail-inbox || false<enter>" "Refresh inbox"

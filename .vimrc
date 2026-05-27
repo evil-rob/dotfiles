@@ -191,6 +191,7 @@ endif
 syntax enable
 colorscheme dracula
 
+set colorcolumn=80
 if has('gui_running')
   source ~/.gvim
 endif

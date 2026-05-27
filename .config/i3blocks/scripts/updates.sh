@@ -13,6 +13,67 @@ fatal()
     exit 1
 }
 
+# Helper function to perform button actions
+do_action()
+{
+    case "$1" in
+        1)
+            # Launch terminal and initiate full system upgrade. Hold terminal
+            # window open and display a message when package manager exits.
+            export PACMAN=$(command -v pacman)
+            export MSG="All done! You may now close this window." 
+            export ERR_MSG="$(basename $PACMAN) terminated with errors.
+    Check /var/log/pacman.log" 
+            export PACMAN_OPTS="--sync --refresh --sysupgrade"
+            footclient --client-environment --hold --title="pacman" --app-id="pacman" \
+                sh -c 'sudo "$PACMAN" $PACMAN_OPTS && echo "$MSG" && exit; echo "$ERR_MSG"; exit 1' \
+                && exit
+
+            # If we made it here, the system upgrade was unsuccessful.
+            # Print error state to block.
+            printf '%s\n' "ERROR" "E" "#FFFF00" "#FF0000"
+            exit
+            ;;
+        2)
+            # Manually check for updates. Restart script execution.
+            # Unset $button so we do not fall into an infinite loop.
+            $HOME/.local/bin/checkupdates.sh >"$UPDATE_FILE"
+            unset button
+            exec "$0" "$@"
+            ;;
+        3)
+            # Display list of pending updates.
+            expac -S "%n\n%v\n%d" $new_packages | yad --title="Update List" \
+                --button="Close:0" --width=800 --height=600 --list --no-selection \
+                --column="Name" --column="Version" --column="Description" || true
+            printf '%s\n' "${full_text#? }" "${short_text}" "${color}" "${background}"
+            exit 0
+            ;;
+        4)
+            # Dismiss indicator
+            new_packages=""
+            ;;
+    esac
+}
+
+# Display action menu
+get_selection()
+{
+    choice=""
+    while [ -z "$choice" ]
+    do
+        choice=$(yad --width=300 --height=250 \
+            --title="Make selection" --list --no-headers \
+            --column="ID" --column="Action" \
+            "1" "Perform system upgrade" \
+            "2" "Manually check for updates" \
+            "3" "List pending updates" \
+            "4" "Dismiss indicator" \
+            --hide-column="1") || choice="0"
+    done
+    echo "${choice%%|*}"
+}
+
 # Configuration:
 # Set the update file path. Uses the first script argument ($1), 
 # or defaults to ~/.cache/i3blocks/updates if no argument is provided.
@@ -32,42 +93,7 @@ age=$((now - last_update)) # Difference in seconds
 new_packages=$(tail -n+2 "$UPDATE_FILE")
 
 # Check if the block was clicked:
-case "${button-}" in
-    1)
-        # Launch terminal and initiate full system upgrade. Hold terminal
-        # window open and display a message when package manager exits.
-        export PACMAN=$(command -v pacman)
-        export MSG="All done! You may now close this window." 
-        nl='
-'
-        export ERR_MSG="$(basename $PACMAN) terminated with errors.${nl}Check /var/log/pacman.log" 
-        export PACMAN_OPTS="--sync --refresh --sysupgrade"
-        footclient --client-environment --hold --title="pacman" --app-id="pacman" \
-            sh -c 'sudo "$PACMAN" $PACMAN_OPTS && echo "$MSG" && exit; echo "$ERR_MSG"; exit 1' \
-            && exit
-
-        # If we made it here, the system upgrade was unsuccessful.
-        # Print error state to block.
-        printf '%s\n' "ERROR" "E" "#FFFF00" "#FF0000"
-        exit
-        ;;
-    2)
-        # Manually check for updates. Restart script execution.
-        # Unset $button so we do not fall into an infinite loop.
-        $HOME/.local/bin/checkupdates.sh >"$UPDATE_FILE"
-        unset button
-        exec "$0" "$@"
-        ;;
-    3)
-        # Perform button action and then print current state so block does not
-        # disappear when exitting successfully.
-        expac -S "%n\n%v\n%d" $new_packages | yad --title="Update List" \
-            --button="Close:0" --width=800 --height=600 --list --no-selection \
-            --column="Name" --column="Version" --column="Description"
-        printf '%s\n' "${full_text#? }" "${short_text}" "${color}" "${background}"
-        exit 0
-        ;;
-esac
+[ -z "${button+z}" ] || do_action $(get_selection)
 
 # Look for standard Arch Linux kernel packages in the list.
 # If found, set a flag/label to warn that a reboot will likely be needed.

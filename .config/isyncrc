@@ -1,0 +1,82 @@
+# Global configuration section
+#   Values here are used as defaults for any following Channel section that
+#   doesn't specify them.
+Expunge None
+Create Both
+
+# ---------------------------------------------------------
+# 1. ACCOUNT: The Credentials
+# ---------------------------------------------------------
+IMAPAccount gmail
+Host imap.gmail.com
+User rsblank@gmail.com
+# Use secret-tool to keep your Arch system secure
+PassCmd "secret-tool lookup service gmail user rsblank@gmail.com"
+TLSType IMAPS
+AuthMechs LOGIN
+
+# ---------------------------------------------------------
+# 2. STORES: The Locations (Far and Near)
+# ---------------------------------------------------------
+# The Remote Source
+IMAPStore gmail-remote
+Account gmail
+
+# The Local Destination
+MaildirStore gmail-local
+Path ~/Mail/gmail/
+Inbox ~/Mail/gmail/inbox
+SubFolders Verbatim
+
+# ---------------------------------------------------------
+# 3. CHANNELS: The Mapping Logic
+# ---------------------------------------------------------
+
+# Channel A: Map the remote INBOX to local 'inbox'
+Channel gmail-inbox
+Far :gmail-remote:INBOX
+Near :gmail-local:inbox
+Expunge Both
+
+# Channel B: Map [Gmail]/Sent Mail to local 'sent' (Flattened)
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:sent
+
+# Add this to your Channels section to sync Drafts
+Channel gmail-drafts
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:drafts
+
+# Add this to your Channels section to sync Drafts
+#Channel gmail-archive
+#Far :gmail-remote:"[Gmail]/All Mail"
+#Near :gmail-local:archive
+
+# Add this to your Channels section to sync Spam
+Channel gmail-junk
+Far :gmail-remote:"[Gmail]/Spam"
+Near :gmail-local:junk
+
+# Add this to your Channels section to sync Trash
+#Channel gmail-trash
+#Far :gmail-remote:"[Gmail]/Trash"
+#Near :gmail-local:trash
+
+# Channel C: Bulk sync all your personal labels (e.g., AudioWork, Taxes)
+# This pattern grabs everything BUT ignores what we've already mapped
+# and ignores the rest of the [Gmail] system folders.
+Channel gmail-custom
+Far :gmail-remote:
+Near :gmail-local:
+Patterns * !INBOX ![Gmail]* !inbox !sent !drafts !junk !trash
+Create Near
+Sync PullNew Push
+Expunge Both
+
+# ---------------------------------------------------------
+# 4. GROUPS: The Execution Command
+# ---------------------------------------------------------
+# This allows you to run 'mbsync gmail' to trigger all three channels
+Group gmail
+Channels gmail-inbox gmail-sent gmail-drafts gmail-junk

@@ -42,7 +42,9 @@
     margin: 2px;
     color: #1a1b26;
     font-weight: 600;
-}* {
+}
+
+* {
     border: none;
     border-radius: 0;
     font-family: "DejaVu Sans Mono", "Font Awesome 7 Free", monospace;

@@ -64,6 +64,23 @@ exec swayidle -w \
        middle_emulation disabled
    }
 
+# Removes title bars but keeps a 1-pixel border
+default_border pixel 1
+default_floating_border pixel 1
+
+# OR: Completely removes title bars and borders
+# default_border none
+# default_floating_border none
+
+hide_edge_borders --i3 smart
+
+# Reduce the vertical height of the tabs
+titlebar_padding 1
+titlebar_border_thickness 1
+
+# Optional: Use a smaller font specifically for titles
+font pango:Inter 1
+
 ### Key bindings
 #
 # Basics:
@@ -90,6 +107,9 @@ exec swayidle -w \
     # Exit sway (logs you out of your Wayland session)
     #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
     bindsym $mod+Shift+e exec "echo -e 'Lock\nSuspend\nLogout\nReboot\nShutdown' | wmenu -i -p 'Quit' | tr [:upper:] [:lower:] | xargs sway-exit.sh"
+
+    # Toggle window borders
+    bindsym $mod+t border toggle
 #
 # Moving around:
 #
@@ -271,3 +291,5 @@ for_window [app_id="galculator"] floating enable
 for_window [app_id="yad"] floating enable
 for_window [app_id="pacman"] floating enable
 for_window [app_id="wttr.in"] floating enable
+for_window [app_id="brave-nngceckbapebfimnlniiiahkandclblb-Default"] floating enable
+for_window [class="Bitwarden"] floating enable

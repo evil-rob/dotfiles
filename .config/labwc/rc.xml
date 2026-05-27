@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!--
+  This is a very simple config file with many options missing. For a complete
+  set of options with comments, see docs/rc.xml.all
+-->
+
+<labwc_config>
+
+  <theme>
+    <name>Adwaita-Papirus-dark</name>
+    <cornerRadius>8</cornerRadius>
+    <font name="sans" size="10" />
+  </theme>
+
+  <desktops number="4" prefix="Workspace " />
+
+  <keyboard>
+    <default />
+    <!-- Use a different terminal emulator -->
+    <keybind key="W-Return">
+      <action name="Execute" command="footclient" />
+    </keybind>
+    <keybind key="W-f">
+      <action name="Execute" command="pcmanfm" />
+    </keybind>
+    <keybind key="W-S-e">
+      <action name="Execute" command="labwc-exit" />
+    </keybind>
+    <keybind key="A-F3">
+      <action name="Execute" command="rofi -modi drun -show-icons -show drun" />
+    </keybind>
+    <keybind key="W-d">
+        <action name="Execute" command="wmenu-run" />
+    </keybind>
+    <keybind key="W-c">
+        <action name="Execute" command="clipchoose.sh" />
+    </keybind>
+    <keybind key="W-S-c">
+        <action name="Execute" command="sh -c 'cliphist wipe; notify-send Labwc Clipboard\ history\ wiped.'" />
+    </keybind>
+    <!--
+      Remove a previously defined keybind
+      A shorter alternative is <keybind key="W-F4" />
+    <keybind key="W-F4">
+      <action name="None" />
+    </keybind>
+    -->
+  </keyboard>
+
+  <mouse>
+    <default />
+    <!-- Show a custom menu on desktop right click -->
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu" menu="some-custom-menu" />
+      </mousebind>
+    </context>
+  </mouse>
+
+  <libinput>
+    <device category="default">
+      <naturalScroll>yes</naturalScroll>
+      <!--
+      <leftHanded>no</leftHanded>
+      <pointerSpeed>0.0</pointerSpeed>
+      <accelProfile>adaptive</accelProfile>
+      -->
+      <tap>no</tap>
+      <!--
+      <tapButtonMap>lrm</tapButtonMap>
+      <tapAndDrag>yes</tapAndDrag>
+      <dragLock>no</dragLock>
+      <middleEmulation>no</middleEmulation>
+      <disableWhileTyping>yes</disableWhileTyping>
+      <clickMethod>button-areas</clickMethod>
+      <sendEventsMode>yes</sendEventsMode>
+      <calibrationMatrix>1.0 0.0 0.0 0.0 1.0 0.0</calibrationMatrix>
+      -->
+      <scrollFactor>1.0</scrollFactor>
+    </device>
+  </libinput>
+
+  <windowRules>
+    <windowRule title="pcmanfm" serverDecoration="no">
+      <skipTaskbar>yes</skipTaskbar>
+      <skipWindowSwitcher>yes</skipWindowSwitcher>
+      <fixedPosition>yes</fixedPosition>
+      <action name="MoveTo" x="0" y="0" />
+      <action name="ToggleAlwaysOnBottom"/>
+      <skipTaskbar>yes</skipTaskbar>
+      <!-- Optional: Keeps the desktop sticky across all virtual desktops -->
+      <sticky>yes</sticky> 
+      <!-- Optional: Prevents the background from accidentally being minimized -->
+      <skipPager>yes</skipPager>
+    </windowRule>
+  </windowRules>
+</labwc_config>
