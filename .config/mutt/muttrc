@@ -135,6 +135,8 @@ set smtp_url = "smtps://$my_gmail_address:$my_gmail_app_pass@smtp.gmail.com:465/
 # Invoke via ctrl-t in an address prompt
 #set query_command = "/usr/bin/lbdbq"
 
+set signature="~/.config/mutt/signature"
+
 ###############
 # Sidebar
 #
