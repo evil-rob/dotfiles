@@ -1,6 +1,6 @@
 set $term foot
 set $browser brave --enable-features=UseOzonePlatform --ozone-platform=wayland
-set $filemanager thunar
-set $editor typobuster
+set $filemanager pcmanfm
+set $editor gvim
 set $launcher nwg-drawer
 set $exit $launcher

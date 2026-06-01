@@ -32,7 +32,7 @@ button {
 #button-custom:hover {
     border: none;
     border-radius: 3px;
-    background: #cd7ebf;
+    background: #4c7899;
     color: #fff
 }
 
@@ -111,6 +111,6 @@ button {
 *:selected {
     border: none;
     border-radius: 3px;
-    background: #cd7ebf;
+    background: #4c7899;
     color: #fff
 }

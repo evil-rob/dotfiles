@@ -23,8 +23,6 @@
       "clock"
     ],
     "modules-right": [
-      "executor-cpuav",
-      "executor-cpubar",
       "sway-mode",
       "scratchpad",
       "tray",
@@ -117,7 +115,7 @@
     },
     "playerctl": {},
     "clock": {
-      "format": "%a, %d. %b  %H:%M:%S",
+      "format": "%A %D %-I:%M %p",
       "interval": 1,
       "on-right-click": "",
       "tooltip-text": "",
@@ -125,7 +123,18 @@
       "on-middle-click": "",
       "on-scroll-up": "",
       "on-scroll-down": "",
-      "css-name": "clock"
+      "css-name": "clock",
+      "tooltip-date-format": false,
+      "root-css-name": "root-clock",
+      "angle": 0.0,
+      "calendar-path": "",
+      "calendar-css-name": "calendar-window",
+      "calendar-placement": "top",
+      "calendar-margin-horizontal": 0,
+      "calendar-margin-vertical": 0,
+      "calendar-icon-size": 24,
+      "calendar-interval": 60,
+      "calendar-on": true
     },
     "width": "auto",
     "sway-workspaces": {
@@ -234,8 +243,24 @@
     },
     "sigrt": 64,
     "use-sigrt": false,
-    "sway-mode": {},
+    "sway-mode": {
+      "show-default": false,
+      "show-icon": true,
+      "css-name": "",
+      "icon-size": 16,
+      "angle": 0.0
+    },
     "hyprland-taskbar": {},
-    "hyprland-workspaces": {}
+    "hyprland-workspaces": {},
+    "run-if-output-exist": [],
+    "run-if-output-absent": [],
+    "monitor": "",
+    "width-as-percentage": false,
+    "start-hidden": false,
+    "hyprland-submap": {},
+    "keyboard-layout": {},
+    "niri-taskbar": {},
+    "random-wallpaper": {},
+    "pinned": {}
   }
 ]

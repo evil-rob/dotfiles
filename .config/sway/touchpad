@@ -5,7 +5,7 @@ input "type:touchpad" {
   scroll_method two_finger
   click_method button_areas
   left_handed disabled
-  tap enabled
+  tap disabled
   tap_button_map lrm
   drag enabled
   drag_lock disabled
