@@ -1,3 +1,4 @@
+[ -f /etc/zsh/zshrc ] && source /etc/zsh/zshrc
 fpath=(/usr/share/zsh/site-functions /usr/share/zsh/functions $fpath)
 
 # Lines configured by zsh-newuser-install
@@ -6,7 +7,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt extendedglob notify
 unsetopt autocd
-bindkey -v
+#bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 #zstyle :compinstall filename '/home/robert/.zshrc'
