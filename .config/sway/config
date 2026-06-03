@@ -29,10 +29,10 @@ font pango:monospace 11
 set $Mod Mod4
 
 # direction keys
-set $up l
-set $down k
-set $left j
-set $right semicolon
+set $up k
+set $down j
+set $left l
+set $right h
 
 ###############     Autostart      ##################
 
@@ -223,11 +223,11 @@ for_window [urgent="latest"] focus
 focus_on_window_activation   focus
 
 # container layout
-bindsym $Mod+h split h
-bindsym $Mod+v split v
+bindsym Mod1+h split h
+bindsym Mod1+v split v
 bindsym $Mod+Shift+t layout tabbed
 bindsym $Mod+Shift+s layout stacking
-bindsym $Mod+Shift+h layout toggle split
+bindsym Mod1+Shift+h layout toggle split
 
 default_orientation horizontal
 
